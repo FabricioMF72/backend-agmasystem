@@ -1,0 +1,19 @@
+{
+"port": 5000,
+"enviroment": "development",
+"config_file": "development",
+"app_name": "backend-agmasystem",
+"pool_max": 30,
+"time_zone": "America/Costa Rica",
+"front_end_url": "https://localhost:3000",
+"back_end_url": "https://localhost:5000",
+"database_auth_type": "AD",
+"database_config": {
+    "database": "./config/txt/db_name.txt",
+    "username": "./config/txt/db_username.txt",
+    "password": "./config/txt/db_password.txt",
+    "host": "./config/txt/db_host.txt"
+},
+"email_api_url": "",
+"email_api_key": ""
+}
