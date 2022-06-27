@@ -1,27 +1,53 @@
-import config from "config";
-//import { dbConfig } from "./models";
-import app from "./app"
-//import {buildBehavioral} from '../utils/loggerFactory'
-//const logger = buildBehavioral('dbConfig.ts');
+// import { AppDataSource } from "./data-source"
+// import { Client } from "./entity/Client"
 
-let port = config.get('port');
-if(config.util.getEnv('NODE_ENV') === 'production'){
-    port = process.env.PORT;
-}
+// AppDataSource.initialize().then(async () => {
 
-if(!port){
-    process.exit(1);
-}
+//     // console.log("Inserting a new user into the database...")
+//     // const client = new Client()
+//     // client.FirstName = "Timber"
+//     // client.LastName = "Saw"
+//     // await AppDataSource.manager.save(client)
+//     // console.log("Saved a new user with id: " + client.ClientID)
 
-const portApp: number = parseInt(port as string, 10)
+//     console.log("Loading users from the database...")
+//     const clients = await AppDataSource.manager.find(Client)
+//     console.log("Loaded users: ", clients)
 
-const server = app.listen(portApp, async () => {
-    try {
-        //await dbConfig.authenticate();
-        //logger.info("Database connected")
-    } catch (error) {
-        //logger.fatal("Database connection error")
-    }
-})
+//     console.log("Here you can setup and run express / fastify / any other framework.")
 
+// }).catch(error => console.log(error))
 
+var ISOLATION_LEVEL = require('tedious').ISOLATION_LEVEL;
+const { Connection } = require("tedious");
+
+// Create connection to database
+const config = {
+  authentication: {
+    options: {
+      userName: "AdminAgma", // update me
+      password: "#6X4VjF&qAr" // update me
+    },
+    type: "default"
+  },
+  server: "tcp:agamadev.database.windows.net", // update me
+  options: {
+    database: "agmadevdb", //update me
+    encrypt: true,
+    enableArithAbort: true,
+    connectionIsolationLevel: ISOLATION_LEVEL.READ_UNCOMMITTED
+  }
+};
+
+const connection = new Connection(config);
+
+// Attempt to connect and execute queries if connection goes through
+connection.on("connect", (err: { message: any; }) => {
+  if (err) {
+    console.error(err.message);
+  } else {
+    console.log("CONNECTED SUCCECSS");
+  }
+});
+
+connection.connect();

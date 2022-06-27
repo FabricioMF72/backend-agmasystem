@@ -1,4 +1,4 @@
-import {readFile} from '../Utils/readFile'
+import {readFile} from '../utils/readFile'
 import config from 'config'
 //import {buildBehavioral} from '../utils/loggerFactory'
 
